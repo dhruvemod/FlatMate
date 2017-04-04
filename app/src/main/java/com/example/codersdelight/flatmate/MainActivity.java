@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
 
 
     private ProgressBar ProgressBar;
+    private Button ib;
     private EditText MessageEditText;
     private Button SendButton;
     private String mUsername;
@@ -60,6 +61,7 @@ public class MainActivity extends AppCompatActivity {
         MessageEditText= (EditText) findViewById(R.id.messageEditText);
         SendButton= (Button) findViewById(R.id.sendButton);
         mMessageListView= (ListView) findViewById(R.id.messageListView);
+        ib= (Button) findViewById(R.id.imagebutton);
         firebaseDatabase=FirebaseDatabase.getInstance();
         mFirebaseAuth = FirebaseAuth.getInstance();
         firebaseDatabaseReference=firebaseDatabase.getReference().child("message");
@@ -121,6 +123,14 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
                 }
             }
         };
+        ib.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent=new Intent(getApplicationContext(),MoneyDialog.class);
+                startActivity(intent);
+            }
+        });
+
     }
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
