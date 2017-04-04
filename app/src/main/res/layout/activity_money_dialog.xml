@@ -84,6 +84,7 @@
         android:id="@+id/credit"
         android:layout_width="0dp"
         android:layout_weight="1"
+        android:enabled="false"
         android:layout_height="wrap_content"
         android:layout_marginBottom="8dp"
         android:layout_marginLeft="8dp"
@@ -93,6 +94,7 @@
     />
 
     <Button
+        android:enabled="false"
         android:id="@+id/debit"
         android:layout_width="0dp"
         android:layout_weight="1"
