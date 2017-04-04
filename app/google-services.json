@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "685017989450",
+    "firebase_url": "https://flatmate-b06c6.firebaseio.com",
+    "project_id": "flatmate-b06c6",
+    "storage_bucket": "flatmate-b06c6.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:685017989450:android:d9bd9e011b1ba161",
+        "android_client_info": {
+          "package_name": "com.example.codersdelight.flatmate"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "685017989450-g9nl9udu01coid8mqqgng049m4grpt32.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.codersdelight.flatmate",
+            "certificate_hash": "6d3eec97944a783865638be768cd2c26786bb0ff"
+          }
+        },
+        {
+          "client_id": "685017989450-41k7bb4ednbh9cqbenaa9fa9eg38bfb7.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBTbwoteN6Xar7p7SRpkt9jwQXhWchVgqA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "685017989450-41k7bb4ednbh9cqbenaa9fa9eg38bfb7.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
