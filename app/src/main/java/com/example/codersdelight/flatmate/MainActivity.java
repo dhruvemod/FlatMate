@@ -105,7 +105,7 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
 
             }
         });
-        mAuthStateListener = new FirebaseAuth.AuthStateListener() {
+       mAuthStateListener = new FirebaseAuth.AuthStateListener() {
             @Override
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
@@ -114,17 +114,8 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
                     onSignedInInitialize(user.getDisplayName());
                 } else {
                     // User is signed out
-                    onSignedOutCleanup();
-                    startActivityForResult(
-                            AuthUI.getInstance()
-                                    .createSignInIntentBuilder()
-                                    .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
-                                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
 
-                                            new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
-                                    .build(),
-                            RC_SIGN_IN);
-
+                signUp();
                 }
             }
         };
@@ -137,20 +128,23 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
 
 
         });
-        recieveData();
-
+    recieveData();
     }
     void recieveData(){
-        FirebaseUser user=mFirebaseAuth.getCurrentUser();
+     if(mFirebaseAuth.getCurrentUser()!=null){
+      FirebaseUser user=mFirebaseAuth.getCurrentUser();
         mUsername=user.getDisplayName();
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
-        if(bundle!=null){
-            String getAmount=(String) bundle.get("amount");
-            String getNote=(String) bundle.get("note");
-             chatMessages chatMessages=new chatMessages("Paid Rs."+getAmount+" for "+getNote,mUsername);
+        if(bundle!=null) {
+            String getAmount = (String) bundle.get("amount");
+            String getNote = (String) bundle.get("note");
+            chatMessages chatMessages = new chatMessages("Paid Rs." + getAmount + " for " + getNote, mUsername);
             firebaseDatabaseReference.push().setValue(chatMessages);
-
+        }
+        else{
+            signUp();
+        }
         }
 
     }
@@ -217,6 +211,17 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
             mFirebaseAuth.removeAuthStateListener(mAuthStateListener);
         }
     }
+public void signUp(){
+    onSignedOutCleanup();
+    startActivityForResult(
+            AuthUI.getInstance()
+                    .createSignInIntentBuilder()
+                    .setProviders(Arrays.asList(new AuthUI.IdpConfig.Builder(AuthUI.EMAIL_PROVIDER).build(),
+                            new AuthUI.IdpConfig.Builder(AuthUI.GOOGLE_PROVIDER).build(),
 
+                            new AuthUI.IdpConfig.Builder(AuthUI.TWITTER_PROVIDER).build()))
+                    .build(),
+            RC_SIGN_IN);
+}
 
 }
