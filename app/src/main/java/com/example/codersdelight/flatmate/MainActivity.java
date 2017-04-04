@@ -13,13 +13,11 @@ import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.firebase.ui.auth.AuthUI;
-import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.ChildEventListener;
@@ -72,6 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         //getting the data from dialog box
 
+        recieveData();
 
 
 
@@ -135,9 +134,10 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
                 Intent intent=new Intent(getApplicationContext(),MoneyDialog.class);
                 startActivity(intent);
             }
+
+
         });
 
-        recieveData();
     }
     void recieveData(){
 
@@ -146,8 +146,7 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
         if(bundle!=null){
             String getAmount=(String) bundle.get("amount");
             String getNote=(String) bundle.get("note");
-            Log.i("Received",getAmount);
-            chatMessages chatMessages=new chatMessages("Paid Rs."+getAmount+" for "+getNote,mUsername);
+             chatMessages chatMessages=new chatMessages("Paid Rs."+getAmount+" for "+getNote,mUsername);
             firebaseDatabaseReference.push().setValue(chatMessages);
 
         }
