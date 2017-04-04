@@ -6,6 +6,7 @@ package com.example.codersdelight.flatmate;
 
 public class chatMessages {
     private String name;
+    private String note;
     private String message;
 public chatMessages(){
 }
@@ -13,6 +14,12 @@ public chatMessages(String message,String name){
     this.name=name;
     this.message=message;
 }
+public chatMessages(String message,String name,String note){
+    this.name=name;
+    this.message=message;
+    this.note=note;
+}
+
 public String getName(){
     return name;
 }
@@ -24,6 +31,12 @@ public String getMessage(){
 }
 public void setMessage(String message){
     this.message=message;
+}
+public String getNote(){
+    return note;
+}
+public void setNote(String note){
+    this.note=note;
 }
 }
 

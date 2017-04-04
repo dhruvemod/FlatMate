@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -41,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
     public static final int RC_SIGN_IN=1;
     private ListView mMessageListView;
     private MessageAdapter mMessageAdapter;
-
-
     private ProgressBar ProgressBar;
     private Button ib;
     private EditText MessageEditText;
@@ -72,7 +71,7 @@ public class MainActivity extends AppCompatActivity {
         ProgressBar.setVisibility(ProgressBar.INVISIBLE);
 
         //getting the data from dialog box
-        
+
 
 
 
@@ -137,6 +136,21 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
                 startActivity(intent);
             }
         });
+
+        recieveData();
+    }
+    void recieveData(){
+
+        Intent intent=getIntent();
+        Bundle bundle=intent.getExtras();
+        if(bundle!=null){
+            String getAmount=(String) bundle.get("amount");
+            String getNote=(String) bundle.get("note");
+            Log.i("Received",getAmount);
+            chatMessages chatMessages=new chatMessages("Paid Rs."+getAmount+" for "+getNote,mUsername);
+            firebaseDatabaseReference.push().setValue(chatMessages);
+
+        }
 
     }
     @Override
