@@ -70,7 +70,7 @@ public class MainActivity extends AppCompatActivity {
 
         //getting the data from dialog box
 
-        recieveData();
+
 
 
 
@@ -137,10 +137,12 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
 
 
         });
+        recieveData();
 
     }
     void recieveData(){
-
+        FirebaseUser user=mFirebaseAuth.getCurrentUser();
+        mUsername=user.getDisplayName();
         Intent intent=getIntent();
         Bundle bundle=intent.getExtras();
         if(bundle!=null){
