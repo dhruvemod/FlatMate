@@ -40,7 +40,9 @@ public class MainActivity extends AppCompatActivity {
     public static final int MAX_MSG_LEN_LIM=1000;
     public static final int RC_SIGN_IN=1;
     private ListView mMessageListView;
-    private ArrayAdapter arrayAdapter;
+    private MessageAdapter mMessageAdapter;
+
+
     private ProgressBar ProgressBar;
     private EditText MessageEditText;
     private Button SendButton;
@@ -63,8 +65,8 @@ public class MainActivity extends AppCompatActivity {
         firebaseDatabaseReference=firebaseDatabase.getReference().child("message");
         //initialising the message list view
         final List<chatMessages> chatMessages=new ArrayList<>();
-        arrayAdapter=new ArrayAdapter(this,android.R.layout.simple_list_item_1,chatMessages);
-        mMessageListView.setAdapter(arrayAdapter);
+        mMessageAdapter=new MessageAdapter(this,R.layout.item_message,chatMessages);
+        mMessageListView.setAdapter(mMessageAdapter);
         ProgressBar.setVisibility(ProgressBar.INVISIBLE);
         MessageEditText.addTextChangedListener(new TextWatcher() {
             @Override
@@ -90,9 +92,9 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
         SendButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                chatMessages chatMessages1=new chatMessages(mUsername,MessageEditText.getText().toString());
+                chatMessages chatMessages1=new chatMessages(MessageEditText.getText().toString(),mUsername);
                 firebaseDatabaseReference.push().setValue(chatMessages1);
-                MessageEditText.setText(" ");
+                MessageEditText.setText("");
 
             }
         });
@@ -143,6 +145,7 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
 
     private void onSignedOutCleanup() {
         mUsername = ANONYMOUS;
+        mMessageAdapter.clear();
 
         detachDatabaseReadListener();
     }
@@ -152,7 +155,7 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
                 @Override
                 public void onChildAdded(DataSnapshot dataSnapshot, String s) {
                     chatMessages chatMessage = dataSnapshot.getValue(chatMessages.class);
-
+                        mMessageAdapter.add(chatMessage);
                 }
 
                 public void onChildChanged(DataSnapshot dataSnapshot, String s) {}

@@ -9,7 +9,7 @@ public class chatMessages {
     private String message;
 public chatMessages(){
 }
-public chatMessages(String name,String message){
+public chatMessages(String message,String name){
     this.name=name;
     this.message=message;
 }
