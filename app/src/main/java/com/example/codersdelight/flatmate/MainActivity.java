@@ -139,12 +139,19 @@ MessageEditText.setFilters(new InputFilter[]{new InputFilter.LengthFilter(MAX_MS
         if(bundle!=null) {
             String getAmount = (String) bundle.get("amount");
             String getNote = (String) bundle.get("note");
-            if(getAmount.equals(null)&& getNote.equals(null)){
-                Toast.makeText(getApplicationContext(),"Fill full details",Toast.LENGTH_SHORT).show();
-            }
-            else{chatMessages chatMessages = new chatMessages("Paid Rs." + getAmount + " for " + getNote, mUsername);
-            firebaseDatabaseReference.push().setValue(chatMessages);}
+            try{
+                if (getAmount.equals("")&& getNote.equals("")){
+Log.i("null","null");
+                }
+                else{
+            chatMessages chatMessages = new chatMessages("Paid Rs." + getAmount + " for " + getNote, mUsername);
+            firebaseDatabaseReference.push().setValue(chatMessages);}}
+        catch (Exception e){
+            e.printStackTrace();
         }
+        }
+
+
         else{
             signUp();
         }
